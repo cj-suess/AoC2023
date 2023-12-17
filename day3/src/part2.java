@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.util.regex.*;
 
-public class part1 {
+public class part2 {
 
     // Class to represent a tuple of row and column
     public static class RowColumnTuple {
@@ -116,14 +116,13 @@ public class part1 {
             }
         }
 
-        //sum of all values in map
         int sum = 0;
-        for (ArrayList<Integer> value : map.values()) {
-            for (Integer integer : value) {
-                sum += integer;
+        // for each key in map, if it has two values, multiply them together and add to sum
+        for (RowColumnTuple key : map.keySet()) {
+            if (map.get(key).size() == 2) {
+                sum += map.get(key).get(0) * map.get(key).get(1);
             }
         }
-
         System.out.println(sum);
     }
 }
