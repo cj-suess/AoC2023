@@ -2,8 +2,6 @@ package AoC2023.day5.src;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.*;
-import java.util.Map;
 
 //My first solution was brute force and did not work for the actual data set
 
