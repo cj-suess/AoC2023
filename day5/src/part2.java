@@ -14,7 +14,7 @@ public class part2 {
         ArrayList<ArrayList<ArrayList<Long>>> maps = new ArrayList<>();
         ArrayList<ArrayList<Long>> currentBlock = new ArrayList<>();
 
-        File file = new File("day5/src/data.txt");
+        File file = new File("day5/src/test.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line = br.readLine();
 
