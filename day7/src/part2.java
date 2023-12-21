@@ -138,11 +138,11 @@ public class part2 {
                     }
                 }
                 else if(!hand1HasJ && !hand2HasJ){
-                    for(; i < newHand1.length() && j < newHand2.length(); i++, j++) {
-                        if (cardRankings.indexOf(newHand1.charAt(i)) > cardRankings.indexOf(newHand2.charAt(j))) {
+                    for(; i < hand1.length() && j < hand2.length(); i++, j++) {
+                        if (cardRankings.indexOf(hand1.charAt(i)) > cardRankings.indexOf(hand2.charAt(j))) {
                             stronger = hand1;
                             break;
-                        } else if (cardRankings.indexOf(newHand2.charAt(j)) > cardRankings.indexOf(newHand1.charAt(i))) {
+                        } else if (cardRankings.indexOf(hand2.charAt(j)) > cardRankings.indexOf(hand1.charAt(i))) {
                             stronger = hand2;
                             break;
                         }
@@ -184,43 +184,43 @@ public class part2 {
 
     public static void main(String[] args) throws IOException {
 
-//        File file = new File("day7/src/data.txt");
-//        FileReader fr = new FileReader(file);
-//        BufferedReader br = new BufferedReader(fr);
-//        String line = br.readLine();
-//
-//        Map<String, ArrayList<String>> hands = new HashMap<>();
-//
-//        while(line != null){
-//            //fill hands
-//            String[] hand = line.split(" ");
-//            ArrayList<String> handInfo = new ArrayList<>();
-//            //first index is the hand type and second index is the bid
-//            handInfo.add(determineHandType(hand[0]));
-//            handInfo.add(hand[1]);
-//            hands.put(hand[0], handInfo);
-//            line = br.readLine();
-//        }
-//
-//        //sort hands
-//        hands = sortHands(hands);
-//
-//        //iterate through map and multiply bid by rank
-//        int rank = hands.size();
-//        long total = 0;
-//        for (Map.Entry<String, ArrayList<String>> entry : hands.entrySet()) {
-//            total += Integer.parseInt(entry.getValue().get(1)) * rank;
-//            rank--;
-//        }
-//
-//        System.out.println(total);
-//
-//
-//        for (Map.Entry<String, ArrayList<String>> entry : hands.entrySet()) {
-//            System.out.println(entry.getKey() + " " + entry.getValue().get(0) + " " + entry.getValue().get(1));
-//        }
+        File file = new File("day7/src/data.txt");
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        String line = br.readLine();
 
-        System.out.println(determineHandType("5A643"));
+        Map<String, ArrayList<String>> hands = new HashMap<>();
+
+        while(line != null){
+            //fill hands
+            String[] hand = line.split(" ");
+            ArrayList<String> handInfo = new ArrayList<>();
+            //first index is the hand type and second index is the bid
+            handInfo.add(determineHandType(hand[0]));
+            handInfo.add(hand[1]);
+            hands.put(hand[0], handInfo);
+            line = br.readLine();
+        }
+
+        //sort hands
+        hands = sortHands(hands);
+
+        //iterate through map and multiply bid by rank
+        int rank = hands.size();
+        long total = 0;
+        for (Map.Entry<String, ArrayList<String>> entry : hands.entrySet()) {
+            total += Integer.parseInt(entry.getValue().get(1)) * rank;
+            rank--;
+        }
+
+        System.out.println(total);
+
+
+        for (Map.Entry<String, ArrayList<String>> entry : hands.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue().get(0) + " " + entry.getValue().get(1));
+        }
+
+        System.out.println(determineHandRank("5A643", "8T5TK"));
     }
 
 }
