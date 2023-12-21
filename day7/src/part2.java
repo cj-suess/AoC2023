@@ -6,22 +6,9 @@ import java.util.regex.*;
 
 public class part2 {
 
-    //Map<String, ArrayList<String>> hands = new HashMap<String, ArrayList<String>>();
-    //map the hands to an arraylist that holds the type of hand that it is and its bid as a string
-    //then sort map based on each hand's hand type
-
-    //Need method to determine hand type
-    //Need method to determine which of two hands are stronger
-
-    // 1. Map the hands to an arrayList that holds the bid at first index and the hand type at second index
-    // 2. Sort the arrayList based on the hand type using a method to determine the strength of two hands
-    // 3. Iterate through the map and multiply the bid by the rank determined by the size of the map
-    // Strongest would be the size of the map itself and the lowest would be 1
-
     public static ArrayList<String> handTypes = new ArrayList<>(Arrays.asList("High Card", "One Pair", "Two of a kind", "Three of a kind", "Full House", "Four of a kind", "Five of a kind"));
 
     public static ArrayList<Character> cardRankings = new ArrayList<>(Arrays.asList('J', '2', '3', '4', '5', '6', '7', '8', '9', 'T' ,'Q', 'K', 'A'));
-
 
     public static String determineHandType(String hand) {
 
@@ -73,25 +60,50 @@ public class part2 {
         boolean hand1HasJ = hand1.contains("J");
         boolean hand2HasJ = hand2.contains("J");
 
-        //if either has a J then loop through cardOptions replacing J with the next card until the highest card rank is obtained
-        if (hand1HasJ) {
-            for (int i = 0; i < cardOptions.size(); i++) {
-                newHand1 = hand1.replace("J", String.valueOf(cardOptions.get(i)));
-                newHand1TypeIndex = handTypes.indexOf(determineHandType(newHand1));
-                if (newHand1TypeIndex > hand1TypeIndex) {
-                    break;
+        //find the strongest hand
+        if(hand1HasJ){
+            ArrayList<String> allPossibleHands = new ArrayList<>();
+            //loop through all possible hands and add them to allPossibleHands
+            for(int i = 0; i < cardOptions.size(); i++){
+                String newHand = hand1.replace('J', cardOptions.get(i));
+                allPossibleHands.add(newHand);
+            }
+            //loop through all possible hands and find the strongest hand
+            for(int i = 0; i < allPossibleHands.size(); i++){
+                String newHandType = determineHandType(allPossibleHands.get(i));
+                int newHandTypeIndex = handTypes.indexOf(newHandType);
+                if(newHandTypeIndex > newHand1TypeIndex){
+                    newHand1TypeIndex = newHandTypeIndex;
+                    newHand1 = allPossibleHands.get(i);
                 }
             }
+        } else{
+            newHand1 = hand1;
+            newHand1TypeIndex = hand1TypeIndex;
         }
-        if (hand2HasJ) {
-            for (int i = 0; i < cardOptions.size(); i++) {
-                newHand2 = hand2.replace("J", String.valueOf(cardOptions.get(i)));
-                newHand2TypeIndex = handTypes.indexOf(determineHandType(newHand2));
-                if (newHand2TypeIndex > hand2TypeIndex) {
-                    break;
+
+        //find the strongest hand
+        if(hand2HasJ){
+            ArrayList<String> allPossibleHands = new ArrayList<>();
+            //loop through all possible hands and add them to allPossibleHands
+            for(int i = 0; i < cardOptions.size(); i++){
+                String newHand = hand2.replace('J', cardOptions.get(i));
+                allPossibleHands.add(newHand);
+            }
+            //loop through all possible hands and find the strongest hand
+            for(int i = 0; i < allPossibleHands.size(); i++){
+                String newHandType = determineHandType(allPossibleHands.get(i));
+                int newHandTypeIndex = handTypes.indexOf(newHandType);
+                if(newHandTypeIndex > newHand2TypeIndex){
+                    newHand2TypeIndex = newHandTypeIndex;
+                    newHand2 = allPossibleHands.get(i);
                 }
             }
+        } else{
+            newHand2 = hand2;
+            newHand2TypeIndex = hand2TypeIndex;
         }
+
 
         //compare the new cards and set strongest to the stronger hand
         if (newHand1TypeIndex > newHand2TypeIndex) {
@@ -126,6 +138,7 @@ public class part2 {
                         }
                     }
                 }
+                //else if only one original hand contains a J then compare its original hand with the new hand of the other hand
                 else if(!hand1HasJ && hand2HasJ){
                     for(; i < newHand1.length() && j < hand2.length(); i++, j++) {
                         if (cardRankings.indexOf(newHand1.charAt(i)) > cardRankings.indexOf(hand2.charAt(j))) {
@@ -137,6 +150,7 @@ public class part2 {
                         }
                     }
                 }
+                //else if neither hand contains a J then compare the hands by looping through each card until on hand has a higher card first
                 else if(!hand1HasJ && !hand2HasJ){
                     for(; i < hand1.length() && j < hand2.length(); i++, j++) {
                         if (cardRankings.indexOf(hand1.charAt(i)) > cardRankings.indexOf(hand2.charAt(j))) {
@@ -149,11 +163,6 @@ public class part2 {
                     }
                 }
             }
-//        System.out.println("Original Hand 1: " + hand1);
-//        System.out.println("New Hand 1: " + newHand1);
-//        System.out.println("Original Hand 2: " + hand2);
-//        System.out.println("New Hand 2: " + newHand2);
-//        System.out.println("Stronger Hand: " + stronger);
 
         return stronger;
     }
@@ -213,14 +222,8 @@ public class part2 {
             rank--;
         }
 
+        //print total
         System.out.println(total);
-
-
-        for (Map.Entry<String, ArrayList<String>> entry : hands.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue().get(0) + " " + entry.getValue().get(1));
-        }
-
-        System.out.println(determineHandRank("5A643", "8T5TK"));
     }
 
 }

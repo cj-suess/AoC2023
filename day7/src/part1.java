@@ -16,7 +16,7 @@ public class part1 {
     // 1. Map the hands to an arrayList that holds the bid at first index and the hand type at second index
     // 2. Sort the arrayList based on the hand type using a method to determine the strength of two hands
     // 3. Iterate through the map and multiply the bid by the rank determined by the size of the map
-        // Strongest would be the size of the map itself and the lowest would be 1
+    // Strongest would be the size of the map itself and the lowest would be 1
 
     public static ArrayList<String> handTypes = new ArrayList<>(Arrays.asList("High Card", "One Pair", "Two of a kind", "Three of a kind", "Full House", "Four of a kind", "Five of a kind"));
 
