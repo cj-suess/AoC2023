@@ -20,6 +20,9 @@ public class part1 {
 
     public static ArrayList<String> handTypes = new ArrayList<>(Arrays.asList("High Card", "One Pair", "Two of a kind", "Three of a kind", "Full House", "Four of a kind", "Five of a kind"));
 
+    public static ArrayList<Character> cardRankings = new ArrayList<>(Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J','Q', 'K', 'A'));
+
+
     public static String determineHandType(String hand) {
 
         String result = "";
@@ -64,26 +67,10 @@ public class part1 {
             int i = 0;
             int j = 0;
             for(; i < hand1.length() && j < hand2.length(); i++, j++) {
-                if(Character.isLetter(hand1.charAt(i)) && Character.isLetter(hand2.charAt(j))) {
-                    if(hand1.charAt(i) < hand2.charAt(j)) {
-                        strongest = hand1;
-                        break;
-                    } else if (hand1.charAt(i) > hand2.charAt(j)) {
-                        strongest = hand2;
-                        break;
-                    }
-                } else if (Character.isDigit(hand1.charAt(i)) && Character.isDigit(hand2.charAt(j))) {
-                    if(hand1.charAt(i) > hand2.charAt(j)) {
-                        strongest = hand1;
-                        break;
-                    } else if (hand1.charAt(i) < hand2.charAt(j)) {
-                        strongest = hand2;
-                        break;
-                    }
-                } else if (Character.isLetter(hand1.charAt(i)) && Character.isDigit(hand2.charAt(j))) {
+                if (cardRankings.indexOf(hand1.charAt(i)) > cardRankings.indexOf(hand2.charAt(j))) {
                     strongest = hand1;
                     break;
-                } else if (Character.isDigit(hand1.charAt(i)) && Character.isLetter(hand2.charAt(j))) {
+                } else if (cardRankings.indexOf(hand1.charAt(i)) < cardRankings.indexOf(hand2.charAt(j))) {
                     strongest = hand2;
                     break;
                 }
@@ -128,7 +115,7 @@ public class part1 {
 
     public static void main(String[] args) throws IOException {
 
-        File file = new File("day7/src/test2.txt");
+        File file = new File("day7/src/data.txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         String line = br.readLine();
@@ -163,8 +150,6 @@ public class part1 {
         for (Map.Entry<String, ArrayList<String>> entry : hands.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue().get(0) + " " + entry.getValue().get(1));
         }
-
-        System.out.println(determineHandRank("A7774 ", "2AAA4 "));
 
     }
 
