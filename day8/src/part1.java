@@ -104,7 +104,7 @@ public class part1 {
                     }
 
                     if (root == null) {
-                        root = currentNode; // You need a better way to determine the root
+                        root = currentNode;
                     }
                 }
             }

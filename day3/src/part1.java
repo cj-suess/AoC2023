@@ -1,5 +1,3 @@
-package AoC2023.day3.src;
-
 import java.util.*;
 import java.io.*;
 import java.util.regex.*;
